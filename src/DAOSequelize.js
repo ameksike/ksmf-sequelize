@@ -61,7 +61,7 @@ class DAOSequelize extends DAO {
             ...this.option
         };
 
-        const url = this.option.url || this.conn2str(this.option);
+        const url = this.option?.url || this.conn2str(this.option);
         this.driver = new Sequelize(url, opts);
         return this;
     }
