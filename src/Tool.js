@@ -10,45 +10,75 @@
  * @requires    sequelize-auto
  **/
 const SequelizeAuto = require('sequelize-auto');
+
+/**
+ * @typedef {import('./types').TAutoOptions} TAutoOptions
+ */
 class SequelizeTool {
 
     /**
      * @description allow generating models from db
-     * @param {Object} config 
-     * @param {String} [config.database] 
-     * @param {String} [config.username]
-     * @param {String} [config.password] 
-     * @param {String} [config.host]
-     * @param {String} [config.port]
-     * @param {String} [config.output] 
-     * @param {String} [config.caseFile] 
-     * @param {String} [config.caseModel] 
-     * @param {String} [config.caseProp] 
-     * @param {String} [config.lang] 
-     * @param {Number} [config.indentation] 
-     * @param {Boolean} [config.useDefine] 
-     * @param {Boolean} [config.singularize] 
-     * @param {Boolean} [config.spaces] 
+     * @param {TAutoOptions} config 
      * @param {Object|null} [logger] 
      * @returns {Promise<any>} res
      */
     async process(config, logger = null) {
         const path = require('path');
-        const output = path.join(__dirname, "../db/models");
-        const defaults = {
-            directory: config?.output || output,
+        const options = {
+            directory: config?.directory || path.join(__dirname, "../db/models"),
+            /** Case of file names */
             caseFile: config?.caseFile || 'l',
+            /** Case of model names */
             caseModel: config?.caseModel || 'p',
+            /** Case of property names */
             caseProp: config?.caseProp || 'c',
+            /** Model language */
             lang: config?.lang || 'js',  // ts,js
+            /** Use `sequelize.define` instead of `init` for model initialization.  See issues #527, #559, #573 */
             useDefine: config?.useDefine ?? false,
+            /** Whether to singularize model names */
             singularize: config?.singularize ?? true,
+            /** Whether to indent with spaces instead of tabs (default true) */
             spaces: config?.spaces ?? true,
-            indentation: config?.indentation || 2
+            closeConnectionAutomatically: true,
+            /** Number of spaces or tabs to indent (default 2) */
+            indentation: config?.indentation || 2,
+            /** Whether to avoid creating alias property in relations */
+            noAlias: config?.spaces ?? false,
+            /** Whether to skip writing index information */
+            noIndexes: config?.noIndexes ?? true,
+            /** Whether to skip writing the init-models file */
+            noInitModels: config?.noInitModels ?? true,
+            /** File where database is stored (sqlite only) */
+            storage: config?.storage || undefined,
+            /** Database host */
+            host: config?.host || undefined,
+            /** Database port */
+            port: config?.port || undefined,
+            /** Database name */
+            database: config?.database || undefined,
+            /** Database dialect */
+            dialect: config?.dialect || undefined,
+            dialectOptions: config?.dialectOptions || undefined,
+            /** Database username */
+            username: config?.username || undefined,
+            /** Database password */
+            password: config?.password || undefined,
+            /** Whether to export views (default false) */
+            views: config?.views || undefined,
+            /** Database schema to export */
+            schema: config?.schema || undefined,
+            /** Tables to skip exporting */
+            skipTables: config?.skipTables || undefined,
+            /** Tables to skip exporting */
+            skipFields: config?.skipFields || undefined,
+            /** Tables to export (default all) */
+            tables: config?.tables || undefined,
+            /** Primary Key Suffixes to trim (default "id") */
+            pkSuffixes: config?.pkSuffixes || undefined,
         };
-        const options = Object.assign({}, defaults, config || {});
         try {
-            const auto = new SequelizeAuto(config.database, config.username, config.password, options);
+            const auto = new SequelizeAuto.default(config.database, config.username, config.password, options);
             const res = await auto.run();
             const tableNames = Object.keys(res.tables);
             logger?.info && logger.info({
