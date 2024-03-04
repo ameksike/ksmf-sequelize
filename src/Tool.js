@@ -33,12 +33,7 @@ class SequelizeTool {
         };
         const options = Object.assign({}, defaults, config || {});
         try {
-            const auto = new SequelizeAuto(
-                config.database,
-                config.username,
-                config.password,
-                options
-            );
+            const auto = new SequelizeAuto(config.database, config.username, config.password, options);
             const res = await auto.run();
             const tableNames = Object.keys(res.tables);
             logger?.info && logger.info({
