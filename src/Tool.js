@@ -57,7 +57,6 @@ class SequelizeTool {
         }
     }
 
-
     /**
      * @description add column if it doesn't exist
      * @param {Object} queryInterface
