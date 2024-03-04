@@ -5,7 +5,6 @@
  * @copyright  	Copyright (c) 2020-2030
  * @license    	GPL
  * @version    	1.0
- * @dependencies sequelize, fs, path
  * @requires    sequelize
  * @requires    sequelize-auto
  **/
