@@ -3,9 +3,39 @@ declare class SequelizeTool {
     /**
      * @description allow generating models from db
      * @param {Object} config
+     * @param {String} [config.database]
+     * @param {String} [config.username]
+     * @param {String} [config.password]
+     * @param {String} [config.host]
+     * @param {String} [config.port]
+     * @param {String} [config.output]
+     * @param {String} [config.caseFile]
+     * @param {String} [config.caseModel]
+     * @param {String} [config.caseProp]
+     * @param {String} [config.lang]
+     * @param {Number} [config.indentation]
+     * @param {Boolean} [config.useDefine]
+     * @param {Boolean} [config.singularize]
+     * @param {Boolean} [config.spaces]
+     * @param {Object|null} [logger]
      * @returns {Promise<any>} res
      */
-    process(config: any, logger: any): Promise<any>;
+    process(config: {
+        database?: string;
+        username?: string;
+        password?: string;
+        host?: string;
+        port?: string;
+        output?: string;
+        caseFile?: string;
+        caseModel?: string;
+        caseProp?: string;
+        lang?: string;
+        indentation?: number;
+        useDefine?: boolean;
+        singularize?: boolean;
+        spaces?: boolean;
+    }, logger?: any | null): Promise<any>;
     /**
      * @description add column if it doesn't exist
      * @param {Object} queryInterface

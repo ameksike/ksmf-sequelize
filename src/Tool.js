@@ -15,21 +15,36 @@ class SequelizeTool {
     /**
      * @description allow generating models from db
      * @param {Object} config 
+     * @param {String} [config.database] 
+     * @param {String} [config.username]
+     * @param {String} [config.password] 
+     * @param {String} [config.host]
+     * @param {String} [config.port]
+     * @param {String} [config.output] 
+     * @param {String} [config.caseFile] 
+     * @param {String} [config.caseModel] 
+     * @param {String} [config.caseProp] 
+     * @param {String} [config.lang] 
+     * @param {Number} [config.indentation] 
+     * @param {Boolean} [config.useDefine] 
+     * @param {Boolean} [config.singularize] 
+     * @param {Boolean} [config.spaces] 
+     * @param {Object|null} [logger] 
      * @returns {Promise<any>} res
      */
-    async process(config, logger) {
+    async process(config, logger = null) {
         const path = require('path');
         const output = path.join(__dirname, "../db/models");
         const defaults = {
-            directory: output,
-            caseFile: 'l',
-            caseModel: 'p',
-            caseProp: 'c',
+            directory: config?.output || output,
+            caseFile: config?.caseFile || 'l',
+            caseModel: config?.caseModel || 'p',
+            caseProp: config?.caseProp || 'c',
             lang: config?.lang || 'js',  // ts,js
-            useDefine: false,
-            singularize: true,
-            spaces: true,
-            indentation: 2
+            useDefine: config?.useDefine ?? false,
+            singularize: config?.singularize ?? true,
+            spaces: config?.spaces ?? true,
+            indentation: config?.indentation || 2
         };
         const options = Object.assign({}, defaults, config || {});
         try {
