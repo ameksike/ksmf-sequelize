@@ -15,7 +15,7 @@ declare const _exports: {
     logger: Console;
     helper: any;
     models: any;
-    option: {};
+    option: import("ksmf/types/src/dao/DAOBase").TList;
     configure(payload?: any): import("ksmf/types/src/dao/DAOBase");
     getUri(): string;
     conn2str(cfg: string | {
@@ -31,6 +31,10 @@ declare const _exports: {
     onError(error: any): void;
     onConnect(option: any): void;
     onDisconnect(option: any): void;
+    setDependencies(options: any): any;
+    inject(options: any): any;
+    getMissingDependencies(list: string | string[]): string[];
+    checkDependencies(list: string | string[], ErrorType?: ErrorConstructor): import("ksdp/types/src/integration/Dip");
 };
 export = _exports;
 import Manager = require("./src/Manager");

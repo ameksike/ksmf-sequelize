@@ -109,3 +109,6 @@ export type TAutoOptions = {
      */
     dialectOptions?: TDialectOptions;
 };
+export type TList<T = any> = {
+    [name: string]: T;
+};

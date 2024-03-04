@@ -48,8 +48,8 @@ class SequelizeWrapper {
         this.utl = this.helper.get('utl');
         if (this.dao) {
             let cfg = this.cfg?.srv?.db || this.cfg?.srv;
-            cfg = this.utl?.from(cfg, this.cfg.srv.from) || cfg;
-            this.dao.configure(cfg);
+            let option = this.utl?.from(cfg, this.cfg.srv.from) || cfg;
+            this.dao.inject({ option });
             this.dao.connect();
             this.dao.load(path.join(this.cfg.path, 'db/models/'));
         }

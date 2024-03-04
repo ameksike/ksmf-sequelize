@@ -38,4 +38,9 @@
  * @property {TDialectOptions} [dialectOptions] - Dialect-specific options
  */
 
+/**
+ * @template [T=object]
+ * @typedef {{[name:String]:T}} TList 
+ **/
+
 module.exports = {};
