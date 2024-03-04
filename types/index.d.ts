@@ -1,7 +1,8 @@
 declare const _exports: {
     cls: {
         Manager: typeof Manager;
-        Wrapper: typeof import("./src/DAOWrapper");
+        Wrapper: typeof import("./src/Wrapper");
+        Tool: typeof import("./src/Tool");
     };
     initManager(): Manager;
     manager: any;
@@ -32,4 +33,4 @@ declare const _exports: {
     onDisconnect(option: any): void;
 };
 export = _exports;
-import Manager = require("./src/DAOSequelize");
+import Manager = require("./src/Manager");

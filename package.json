@@ -9,6 +9,9 @@
     "type": "npx typescript tsc -p ./tsconfig.declarations.json",
     "types": "npx -p typescript tsc ./index.js --target ES2022 --module commonjs --declaration --allowJs --checkJs --emitDeclarationOnly --esModuleInterop --allowSyntheticDefaultImports --resolveJsonModule --outDir types"
   },
+  "bin": {
+    "ksmf-sequelize": "./bin/cli.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ameksike/ksmf-fastify.git"

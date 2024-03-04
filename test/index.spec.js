@@ -6,5 +6,6 @@ describe('LOAD', () => {
         expect(lib).toBeInstanceOf(Object);
         expect(lib.cls.Manager).toBeInstanceOf(Function);
         expect(lib.cls.Wrapper).toBeInstanceOf(Function);
+        expect(lib.cls.Tool).toBeInstanceOf(Function);
     });
 });

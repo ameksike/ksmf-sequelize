@@ -8,7 +8,7 @@
  */
 
 const path = require('path');
-class DAOWrapper {
+class SequelizeWrapper {
 
     /**
      * @type {Object|null}
@@ -112,4 +112,4 @@ class DAOWrapper {
         }
     }
 }
-module.exports = DAOWrapper;
+module.exports = SequelizeWrapper;
