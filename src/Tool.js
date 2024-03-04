@@ -33,7 +33,7 @@ class SequelizeTool {
             /** Case of property names */
             caseProp: config?.caseProp || 'c',
             /** Model language */
-            lang: config?.lang || 'js',  // ts,js
+            lang: config?.lang || 'es5',
             /** Use `sequelize.define` instead of `init` for model initialization.  See issues #527, #559, #573 */
             useDefine: config?.useDefine ?? false,
             /** Whether to singularize model names */
@@ -59,6 +59,7 @@ class SequelizeTool {
             database: config?.database || undefined,
             /** Database dialect */
             dialect: config?.dialect || undefined,
+            /** Primary Key Suffixes to trim (default "id") */
             dialectOptions: config?.dialectOptions || undefined,
             /** Database username */
             username: config?.username || undefined,

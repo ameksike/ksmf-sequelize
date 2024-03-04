@@ -1,4 +1,8 @@
 export type TLangOption = "es5" | "es6" | "esm" | "ts";
+export type TDialect = 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql' | 'db2' | 'snowflake' | 'oracle';
+export type TDialectOptions = {
+    options?: any;
+};
 export type TAutoOptions = {
     /**
      * - Database schema to export
@@ -31,7 +35,7 @@ export type TAutoOptions = {
     /**
      * - Database dialect
      */
-    dialect?: string;
+    dialect?: TDialect;
     /**
      * - Case of file names
      */
@@ -97,7 +101,11 @@ export type TAutoOptions = {
      */
     tables?: Array<string>;
     /**
-     * - Tables to export (default all)
+     * - Primary Key Suffixes to trim (default "id")
      */
     pkSuffixes?: Array<string>;
+    /**
+     * - Dialect-specific options
+     */
+    dialectOptions?: TDialectOptions;
 };
