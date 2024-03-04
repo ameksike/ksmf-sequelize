@@ -1,7 +1,7 @@
 {
   "name": "ksmf-sequelize",
   "version": "1.0.1",
-  "description": "Sequelize support for KsMf framework",
+  "description": "Sequelize ORM support for KsMf framework",
   "main": "index.js",
   "types": "types/index.d.ts",
   "scripts": {
