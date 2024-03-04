@@ -8,7 +8,7 @@
  */
 
 const path = require('path');
-class DAOWrapper {
+class SequelizeWrapper {
 
     /**
      * @type {Object|null}
@@ -48,8 +48,8 @@ class DAOWrapper {
         this.utl = this.helper.get('utl');
         if (this.dao) {
             let cfg = this.cfg?.srv?.db || this.cfg?.srv;
-            cfg = this.utl?.from(cfg, this.cfg.srv.from) || cfg;
-            this.dao.configure(cfg);
+            let option = this.utl?.from(cfg, this.cfg.srv.from) || cfg;
+            this.dao.inject({ option });
             this.dao.connect();
             this.dao.load(path.join(this.cfg.path, 'db/models/'));
         }
@@ -112,4 +112,4 @@ class DAOWrapper {
         }
     }
 }
-module.exports = DAOWrapper;
+module.exports = SequelizeWrapper;

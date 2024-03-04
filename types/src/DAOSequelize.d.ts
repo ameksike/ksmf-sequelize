@@ -1,5 +1,6 @@
 export = DAOSequelize;
-declare class DAOSequelize {
+declare const DAOSequelize_base: typeof import("ksmf/types/src/dao/DAOBase");
+declare class DAOSequelize extends DAOSequelize_base {
     /**
      * @description add column if it doesn't exist
      * @param {Object} queryInterface
@@ -53,8 +54,6 @@ declare class DAOSequelize {
      * @returns {DAOSequelize} self
      */
     initManager(): DAOSequelize;
-    manager: any;
-    driver: any;
     /**
      * @description redefine connect method
      * @returns {DAOSequelize} self
