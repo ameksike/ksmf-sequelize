@@ -49,7 +49,11 @@ class SequelizeWrapper {
         if (this.dao) {
             let cfg = this.cfg?.srv?.db || this.cfg?.srv;
             let option = this.utl?.from(cfg, this.cfg.srv.from) || cfg;
-            this.dao.inject({ option });
+            if (this.dao.inject instanceof Function) {
+                this.dao.inject({ option });
+            } else {
+                this.dao.option = option;
+            }
             this.dao.connect();
             this.dao.load(path.join(this.cfg.path, 'db/models/'));
         }

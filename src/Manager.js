@@ -7,27 +7,20 @@
  * @version    	1.0
  * @dependencies sequelize, fs, path
  * @requires    sequelize
- * @requires    sequelize-auto
  **/
 
 const KsMf = require('ksmf');
-const DAO = KsMf.dao.Base;
-
-class SequelizeManager extends DAO {
+class SequelizeManager extends KsMf.dao.Base {
 
     /**
      * @description initialize Sequelize manager
      * @returns {SequelizeManager} self
      */
     initManager() {
-        this.manager = this.manager || this.helper?.get({
-            name: 'sequelize',
-            type: 'package'
-        });
+        this.manager = this.manager || require('sequelize');
         if (!this.manager || this.driver) {
             return this;
         }
-        const Sequelize = this.manager;
         const opts = {
             define: {
                 timestamps: false
@@ -40,9 +33,9 @@ class SequelizeManager extends DAO {
             },
             retry: {
                 match: [
-                    Sequelize.ConnectionError,
-                    Sequelize.ConnectionTimedOutError,
-                    Sequelize.TimeoutError,
+                    this.manager.ConnectionError,
+                    this.manager.ConnectionTimedOutError,
+                    this.manager.TimeoutError,
                     /Deadlock/i
                 ],
                 max: 3
@@ -62,7 +55,7 @@ class SequelizeManager extends DAO {
         };
 
         const url = this.option?.url || this.conn2str(this.option);
-        this.driver = new Sequelize(url, opts);
+        this.driver = new this.manager(url, opts);
         return this;
     }
 
