@@ -17,7 +17,7 @@ class SequelizeManager extends KsMf.dao.Base {
      * @returns {SequelizeManager} self
      */
     initManager() {
-        this.manager = this.manager || require('sequelize');;
+        this.manager = this.manager || require('sequelize');
         if (!this.manager || this.driver) {
             return this;
         }
