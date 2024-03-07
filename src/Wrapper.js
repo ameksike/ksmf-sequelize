@@ -46,14 +46,20 @@ class SequelizeWrapper {
                 'helper': 'helper'
             }
         });
+        // Register the DAO library into the IoC manager
         manager && this.app?.register(manager, 'dao');
+        // Load DAO library and start the database connection
         this.app?.subscribe(this, 'onInitModules');
+        // Load models for each module
         this.app?.subscribe(this, 'onLoadModule');
+        // Support auto Data Modules
         this.app?.subscribe(this, 'onLoadedModules');
+        // Close database connections
+        this.app?.subscribe(this, 'onStop');
     }
 
     /**
-     * @description load DAO lib and load project models
+     * @description Load DAO library and start the database connection
      */
     onInitModules() {
         this.dao = this.helper.get('dao');
@@ -73,9 +79,8 @@ class SequelizeWrapper {
     }
 
     /**
-     * @description load models for each module 
+     * @description Load models for each module 
      * @param {Object} mod 
-     * @returns 
      */
     onLoadModule(mod) {
         if (!this.dao) {
@@ -98,7 +103,7 @@ class SequelizeWrapper {
     }
 
     /**
-     * @description create all models associations
+     * @description Support auto Data Modules
      */
     loadModules() {
         this.dao = this.dao || this.helper?.get('dao');
@@ -122,6 +127,9 @@ class SequelizeWrapper {
         }
     }
 
+    /**
+     * @description Close database connections
+     */
     onStop() {
         this.dao = this.dao || this.helper?.get('dao');
         if (this.dao?.disconnect instanceof Function) {

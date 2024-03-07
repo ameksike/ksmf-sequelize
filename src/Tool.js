@@ -13,14 +13,32 @@ const SequelizeAuto = require('sequelize-auto');
  * @typedef {import('./types').TAutoOptions} TAutoOptions
  */
 class SequelizeTool {
+    /**
+     * @type {Console|null}
+     */
+    logger = null;
+
+    /**
+     * @type {TAutoOptions}
+     */
+    config;
+
+    /**
+     * @param {TAutoOptions} [config] 
+     */
+    constructor(config = {}) {
+        this.config = config || {};
+    }
 
     /**
      * @description allow generating models from db
-     * @param {TAutoOptions} config 
-     * @param {Object|null} [logger] 
+     * @param {TAutoOptions} [config] 
+     * @param {String|null} [jsonOpt] 
      * @returns {Promise<any>} res
      */
-    async process(config, logger = null) {
+    async run(config = null, jsonOpt) {
+        config = config || this.config;
+        
         const path = require('path');
         const options = {
             directory: config?.directory || path.join(__dirname, "../db/models"),
@@ -80,7 +98,7 @@ class SequelizeTool {
             const auto = new SequelizeAuto.default(config.database, config.username, config.password, options);
             const res = await auto.run();
             const tableNames = Object.keys(res.tables);
-            logger?.info && logger.info({
+            this.logger?.info && this.logger.info({
                 src: "models:db:auto:process",
                 message: "Importation success",
                 data: tableNames
@@ -88,7 +106,7 @@ class SequelizeTool {
             return res;
         }
         catch (error) {
-            logger?.error && logger.error({
+            this.logger?.error && this.logger.error({
                 src: "models:db:auto:process",
                 message: error?.message || error,
                 data: { config, options }
