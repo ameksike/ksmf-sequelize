@@ -47,7 +47,7 @@ $ npm install --save tedious # Microsoft SQL Server
     - Manual configuration.
     - Manual plugin registration.
 
-    3.1. By configuration File
+      3.1. By configuration File
 
 `[PROJECT_PATH]/cfg/core.json`
 
@@ -87,7 +87,7 @@ const app = new KsMf.app.WEB(dir);
 // initialize the application
 app
   .init({
-    development: {
+    cfg: {
       port: 3030,
       host: "localhost",
       module: { load: ["app"] },
@@ -125,6 +125,7 @@ const plugin = app?.helper?.get({
   type: "lib",
   params: {
     exclude: ["forest"],
+    
     service: "rest",
   },
   dependency: {
