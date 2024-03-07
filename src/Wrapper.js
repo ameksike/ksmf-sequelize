@@ -37,6 +37,19 @@ class SequelizeWrapper {
      */
     onInitConfig(cfg) {
         this.cfg = cfg;
+        this.app = this.helper?.get('app');
+        const manager = this.app?.helper?.get({
+            'namespace': 'cls.Manager',
+            'name': 'ksmf-sequelize',
+            'type': 'lib',
+            'dependency': {
+                'helper': 'helper'
+            }
+        });
+        manager && this.app?.register(manager, 'dao');
+        this.app?.subscribe(this, 'onInitModules');
+        this.app?.subscribe(this, 'onLoadModule');
+        this.app?.subscribe(this, 'onLoadedModules');
     }
 
     /**
@@ -70,7 +83,7 @@ class SequelizeWrapper {
         }
         if (!this.exclude.includes(mod.name)) {
             let pat = mod._?.path || path.join(this.cfg.srv.module.path, mod.name);
-            let dir = path.join(pat, "model");
+            let dir = path.join(pat, 'model');
             this.dao.load(dir);
         }
     }
@@ -90,18 +103,18 @@ class SequelizeWrapper {
     loadModules() {
         this.dao = this.dao || this.helper?.get('dao');
         this.app = this.app || this.helper.get('app');
-        if (!this.app || !this.dao?.models || this.service !== "rest") {
+        if (!this.app || !this.dao?.models || this.service !== 'rest') {
             return;
         }
         for (let name in this.dao.models) {
             let mod = {
-                "id": "ksmf.rest." + name,
-                "name": "ksmf",
-                "type": "lib",
-                "namespace": "dao.DataModule",
-                "options": {
-                    "db": {
-                        "modelName": name
+                'id': 'ksmf.rest.' + name,
+                'name': 'ksmf',
+                'type': 'lib',
+                'namespace': 'dao.DataModule',
+                'options': {
+                    'db': {
+                        'modelName': name
                     }
                 }
             };
