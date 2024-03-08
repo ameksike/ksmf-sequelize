@@ -33,12 +33,11 @@ class SequelizeTool {
     /**
      * @description allow generating models from db
      * @param {TAutoOptions} [config] 
-     * @param {String|null} [jsonOpt] 
      * @returns {Promise<any>} res
      */
-    async run(config = null, jsonOpt) {
+    async exec(config = null) {
         config = config || this.config;
-        
+
         const path = require('path');
         const options = {
             directory: config?.directory || path.join(__dirname, "../db/models"),

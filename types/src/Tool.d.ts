@@ -4,12 +4,23 @@ export = SequelizeTool;
  */
 declare class SequelizeTool {
     /**
+     * @param {TAutoOptions} [config]
+     */
+    constructor(config?: TAutoOptions);
+    /**
+     * @type {Console|null}
+     */
+    logger: Console | null;
+    /**
+     * @type {TAutoOptions}
+     */
+    config: TAutoOptions;
+    /**
      * @description allow generating models from db
-     * @param {TAutoOptions} config
-     * @param {Object|null} [logger]
+     * @param {TAutoOptions} [config]
      * @returns {Promise<any>} res
      */
-    process(config: TAutoOptions, logger?: any | null): Promise<any>;
+    exec(config?: TAutoOptions): Promise<any>;
     /**
      * @description add column if it doesn't exist
      * @param {Object} queryInterface
