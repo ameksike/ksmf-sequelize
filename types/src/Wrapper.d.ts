@@ -22,16 +22,15 @@ declare class SequelizeWrapper {
      * @param {Object} cfg
      */
     onInitConfig(cfg: any): void;
+    app: any;
     /**
-     * @description load DAO lib and load project models
+     * @description Load DAO library and start the database connection
      */
     onInitModules(): void;
-    app: any;
     utl: any;
     /**
-     * @description load models for each module
+     * @description Load models for each module
      * @param {Object} mod
-     * @returns
      */
     onLoadModule(mod: any): any;
     /**
@@ -40,8 +39,11 @@ declare class SequelizeWrapper {
      */
     onLoadedModules(modules: any[]): void;
     /**
-     * @description create all models associations
+     * @description Support auto Data Modules
      */
     loadModules(): void;
+    /**
+     * @description Close database connections
+     */
     onStop(): void;
 }

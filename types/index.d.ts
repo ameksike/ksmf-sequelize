@@ -1,40 +1,26 @@
 declare const _exports: {
+    new (opt: any): {
+        helper: any;
+        logger: Console;
+        dao: any;
+        cfg: {};
+        exclude: any;
+        service: any;
+        onInitConfig(cfg: any): void;
+        app: any;
+        onInitModules(): void;
+        utl: any;
+        onLoadModule(mod: any): any;
+        onLoadedModules(modules: any[]): void;
+        loadModules(): void;
+        onStop(): void;
+    };
     cls: {
         Manager: typeof Manager;
-        Wrapper: typeof import("./src/Wrapper");
+        Wrapper: typeof Wrapper;
         Tool: typeof import("./src/Tool");
     };
-    initManager(): Manager;
-    manager: any;
-    driver: any;
-    connect(): Manager;
-    disconnect(): Manager;
-    load(dirname: string, callback?: Function): Manager;
-    associate(): Manager;
-    onLog(type: any, message: any): void;
-    logger: Console;
-    helper: any;
-    models: any;
-    option: import("ksmf/types/src/dao/DAOBase").TList;
-    configure(payload?: any): import("ksmf/types/src/dao/DAOBase");
-    getUri(): string;
-    conn2str(cfg: string | {
-        dialect?: string;
-        username?: string;
-        password?: string;
-        database?: string;
-        protocol?: string;
-        host?: string;
-        port?: string;
-    }): string;
-    log(type: string | number, message: any): void;
-    onError(error: any): void;
-    onConnect(option: any): void;
-    onDisconnect(option: any): void;
-    setDependencies(options: any): any;
-    inject(options: any): any;
-    getMissingDependencies(list: string | string[]): string[];
-    checkDependencies(list: string | string[], ErrorType?: ErrorConstructor): import("ksdp/types/src/integration/Dip");
 };
 export = _exports;
 import Manager = require("./src/Manager");
+import Wrapper = require("./src/Wrapper");

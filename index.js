@@ -1,8 +1,9 @@
 const Manager = require('./src/Manager');
-module.exports = new (class extends Manager {
-    cls = {
+const Wrapper = require('./src/Wrapper');
+module.exports = (class extends Wrapper {
+    static cls = {
         Manager,
-        Wrapper: require('./src/Wrapper'),
+        Wrapper,
         Tool: require('./src/Tool'),
     };
 });
